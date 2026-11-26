@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int& highestMark(int marks[], int size) {
+    int best = 0;
+    for (int i = 1; i < size; ++i)
+        if (marks[i] > marks[best]) best = i;
+    return marks[best];
+}
+const int& highestMarkConst(const int marks[], int size) {
+    int best = 0;
+    for (int i = 1; i < size; ++i)
+        if (marks[i] > marks[best]) best = i;
+    return marks[best];
+}
+int highestMarkCopy(const int marks[], int size) {
+    int best = 0;
+    for (int i = 1; i < size; ++i)
+        if (marks[i] > marks[best]) best = i;
+    return marks[best];
+}
+
+// Deliberately unsafe example; do not call this function.
+// int& danglingReference() { int local = 50; return local; }
+
+int main() {
+    int marks[] = {78, 92, 85, 88};
+    cout << "Highest mark: " << highestMark(marks, 4) << '\n';
+    highestMark(marks, 4) += 2;
+    cout << "After moderation: " << marks[1] << '\n';
+    cout << "Const reference: " << highestMarkConst(marks, 4) << '\n';
+    cout << "Returned copy: " << highestMarkCopy(marks, 4) << '\n';
+}
